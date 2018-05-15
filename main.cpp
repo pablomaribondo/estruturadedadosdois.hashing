@@ -11,7 +11,8 @@ int main(int argc, char *argv[]) {
     h.insert(4, 100);
     h.insert(4, 200);
     h.insert(4, 300);
-    h.remove(4, 300);
+    h.insert(5, 300);
+    
     
     h.displayAll();
     

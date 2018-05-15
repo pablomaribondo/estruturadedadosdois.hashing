@@ -10,6 +10,7 @@ public:
 
     Node();
     Node(int key, int value);
+    Node(int key, int value, Node* next);
     void setNext(Node*);
     Node* getNext();
     void setValue(int value);

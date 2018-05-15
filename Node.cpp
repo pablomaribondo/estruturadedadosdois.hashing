@@ -16,6 +16,12 @@ Node::Node(int key, int value) {
     this->next = NULL;
 }
 
+Node::Node(int key, int value, Node* next) {
+    this->key = key;
+    this->value = value;
+    this->next = next;
+}
+
 void Node::setNext(Node* next) {
     this->next = next;
 }
