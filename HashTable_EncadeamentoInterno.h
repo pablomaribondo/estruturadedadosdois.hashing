@@ -19,7 +19,6 @@ public:
     int search_previous(int key, int value);
     void displayAll();
     bool isFull();
-    bool isEmpty();
     
 };
 

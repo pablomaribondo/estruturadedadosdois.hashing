@@ -107,44 +107,67 @@ void HashTable_EncadeamentoInterno::remove(int key, int value) {
 }
 
 int HashTable_EncadeamentoInterno::search(int key, int value) {
-    if (!isEmpty()) {
-        int position = -1;
-        int hash_val = hashFunc(key);
-        if (htable[hash_val] == NULL) {
-            return position;
-        } else if (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value) {
-            return hash_val;
-        } else {
-            for (int i = (TABLE_SIZE / 2); i < TABLE_SIZE; i++) {
-                if (htable[i] == NULL) {
-                    break;
-                } else if (htable[i]->getKey() == key && htable[i]->getValue() == value) {
-                    position = i;
-                    break;
+    int position = -1;
+    int hash_val = hashFunc(key);
+    if (htable[hash_val] == NULL) {
+        return position;
+    } else if (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value) {
+        return hash_val;
+    } else {
+        Node* next = htable[hash_val]->getNext();
+        while (next != NULL) {
+            if (next->getKey() == key && next->getValue() == value) {
+                for (int i = (TABLE_SIZE / 2); i < TABLE_SIZE; i++) {
+                    if (htable[i] == NULL) {
+                        continue;
+                    } else if (htable[i]->getKey() == key && htable[i]->getValue() == value) {
+                        position = i;
+                        goto FOUND_SEARCH;
+                    }
                 }
             }
-            return position;
+            next = next->getNext();
         }
-    } else {
-        return -1;
+FOUND_SEARCH:
+        return position;
     }
 }
 
 int HashTable_EncadeamentoInterno::search_previous(int key, int value) {
-    if (!isEmpty()) {
-        int position = -1;
-        for (int i = 0; i < TABLE_SIZE; i++) {
-            if (htable[i] == NULL || htable[i]->getNext() == NULL) {
-                continue;
-            } else if (htable[i]->getNext()->getKey() == key && htable[i]->getNext()->getValue() == value) {
-                position = i;
-                break;
-            }
-        }
+    int position = -1;
+    int hash_val = hashFunc(key);
+    if (htable[hash_val] == NULL || htable[hash_val]->getNext() == NULL || (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value)) {
         return position;
     } else {
-        return -1;
+        Node* next = htable[hash_val]->getNext();
+        while (next != NULL) {
+            if (next->getKey() == key && next->getValue() == value) {
+                for (int i = (TABLE_SIZE / 2); i < TABLE_SIZE; i++) {
+                    if (htable[i] == NULL || htable[i]->getNext() == NULL) {
+                        continue;
+                    } else if (htable[i]->getNext()->getKey() == key && htable[i]->getNext()->getValue() == value) {
+                        position = i;
+                        goto FOUND_SEARCH_POSITION;
+                    }
+                }
+            }
+            next = next->getNext();
+        }
+FOUND_SEARCH_POSITION:
+        return position;
     }
+
+
+
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        if (htable[i] == NULL || htable[i]->getNext() == NULL) {
+            continue;
+        } else if (htable[i]->getNext()->getKey() == key && htable[i]->getNext()->getValue() == value) {
+            position = i;
+            break;
+        }
+    }
+    return position;
 }
 
 void HashTable_EncadeamentoInterno::displayAll() {
@@ -166,7 +189,7 @@ void HashTable_EncadeamentoInterno::displayAll() {
 
 bool HashTable_EncadeamentoInterno::isFull() {
     bool flag = true;
-    for (int i = 0; i < TABLE_SIZE; i++) {
+    for (int i = TABLE_SIZE / 2; i < TABLE_SIZE; i++) {
         if (htable[i] != NULL) {
             continue;
         } else {
@@ -176,19 +199,3 @@ bool HashTable_EncadeamentoInterno::isFull() {
     }
     return flag;
 }
-
-bool HashTable_EncadeamentoInterno::isEmpty() {
-    bool flag = true;
-    for (int i = 0; i < TABLE_SIZE; i++) {
-        if (htable[i] == NULL) {
-            continue;
-        } else {
-            flag = false;
-            break;
-        }
-    }
-    return flag;
-}
-
-
-
