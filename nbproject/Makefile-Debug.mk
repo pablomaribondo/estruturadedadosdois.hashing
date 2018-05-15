@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/HashTable_EncadeamentoExterno.o \
+	${OBJECTDIR}/HashTable_EncadeamentoInterno.o \
 	${OBJECTDIR}/List.o \
 	${OBJECTDIR}/Node.o \
 	${OBJECTDIR}/main.o
@@ -69,6 +70,11 @@ ${OBJECTDIR}/HashTable_EncadeamentoExterno.o: HashTable_EncadeamentoExterno.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HashTable_EncadeamentoExterno.o HashTable_EncadeamentoExterno.cpp
+
+${OBJECTDIR}/HashTable_EncadeamentoInterno.o: HashTable_EncadeamentoInterno.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HashTable_EncadeamentoInterno.o HashTable_EncadeamentoInterno.cpp
 
 ${OBJECTDIR}/List.o: List.cpp
 	${MKDIR} -p ${OBJECTDIR}
