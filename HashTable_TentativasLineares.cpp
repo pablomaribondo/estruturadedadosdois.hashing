@@ -52,7 +52,13 @@ void HashTable_TentativasLineares::insert(int key, int value, int position) {
 }
 
 void HashTable_TentativasLineares::remove(int key, int value) {
-
+    int position = search(key, value);
+    if (position == -1) {
+        cout << "This element does not exist!" << endl;
+    } else {
+        delete htable[position];
+        htable[position] = NULL;
+    }
 }
 
 int HashTable_TentativasLineares::search(int key, int value) {
@@ -63,17 +69,17 @@ int HashTable_TentativasLineares::search(int key, int value) {
     } else if (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value) {
         return hash_val;
     } else {
-        int index = key++;
+        int index = key;
         int aux = reHashFunction(index);
         while (aux != hash_val) {
             if (htable[aux] == NULL) {
-                aux = reHashFunction(index++);
+                aux = reHashFunction(++index);
                 continue;
             } else if (htable[aux]->getKey() == key && htable[aux]->getValue() == value) {
                 position = aux;
                 break;
             }
-            aux = reHashFunction(index++);
+            aux = reHashFunction(++index);
         }
     }
     return position;
