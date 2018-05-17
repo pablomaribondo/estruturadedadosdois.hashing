@@ -2,19 +2,22 @@
 #include <iostream>
 #include "HashTable_EncadeamentoExterno.h"
 #include "HashTable_EncadeamentoInterno.h"
+#include "HashTable_TentativasLineares.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
     
-    HashTable_EncadeamentoInterno h;
-    h.insert(4, 100);
-    h.insert(4, 200);
-    h.insert(4, 300);
-    h.insert(5, 300);
-    h.remove(4, 300);
-    
-    
+    HashTable_TentativasLineares h;
+    h.insert(10, 100);
+    h.insert(18, 200);
+    h.insert(26, 300);
+    h.insert(2, 300);
+    h.insert(6, 300);
+    h.insert(36, 300);
+    h.insert(22, 300);
+    h.insert(6, 200);
+            
     h.displayAll();
     
     return 0;

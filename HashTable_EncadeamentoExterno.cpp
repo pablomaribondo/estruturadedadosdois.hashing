@@ -12,17 +12,17 @@ HashTable_EncadeamentoExterno::~HashTable_EncadeamentoExterno() {
     delete[] htable;
 }
 
-int HashTable_EncadeamentoExterno::hashFunc(int key) {
+int HashTable_EncadeamentoExterno::hashFunction(int key) {
     return key % TABLE_SIZE;
 }
 
 void HashTable_EncadeamentoExterno::insert(int key, int value) {
-    int hash_val = hashFunc(key);
+    int hash_val = hashFunction(key);
     htable[hash_val].insert_sorted(key, value);
 }
 
 void HashTable_EncadeamentoExterno::remove(int key, int value) {
-    int hash_val = hashFunc(key);
+    int hash_val = hashFunction(key);
     int position = htable[hash_val].search(key, value);
     if (position == -1) {
         cout << "This element does not exist!" << endl;
@@ -32,7 +32,7 @@ void HashTable_EncadeamentoExterno::remove(int key, int value) {
 }
 
 int HashTable_EncadeamentoExterno::search(int key, int value) {
-    int hash_val = hashFunc(key);
+    int hash_val = hashFunction(key);
     int position = htable[hash_val].search(key, value);
     return position;
 }

@@ -18,14 +18,14 @@ HashTable_EncadeamentoInterno::~HashTable_EncadeamentoInterno() {
     delete[] htable;
 }
 
-int HashTable_EncadeamentoInterno::hashFunc(int key) {
+int HashTable_EncadeamentoInterno::hashFunction(int key) {
     return key % (TABLE_SIZE / 2);
 }
 
 void HashTable_EncadeamentoInterno::insert(int key, int value) {
-    if (this->search(key, value) == -1) {
+    if (search(key, value) == -1) {
         if (!this->isFull()) {
-            int hash_val = hashFunc(key);
+            int hash_val = hashFunction(key);
             Node* newNode = new Node(key, value);
             if (htable[hash_val] == NULL) {
                 htable[hash_val] = newNode;
@@ -68,7 +68,7 @@ void HashTable_EncadeamentoInterno::insert_position(int key, int value, int posi
 }
 
 void HashTable_EncadeamentoInterno::remove(int key, int value) {
-    int hash_val = hashFunc(key);
+    int hash_val = hashFunction(key);
     int position = search(key, value);
     if (position == -1) {
         cout << "This element does not exist!" << endl;
@@ -108,7 +108,7 @@ void HashTable_EncadeamentoInterno::remove(int key, int value) {
 
 int HashTable_EncadeamentoInterno::search(int key, int value) {
     int position = -1;
-    int hash_val = hashFunc(key);
+    int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL) {
         return position;
     } else if (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value) {
@@ -135,7 +135,7 @@ FOUND_SEARCH:
 
 int HashTable_EncadeamentoInterno::search_previous(int key, int value) {
     int position = -1;
-    int hash_val = hashFunc(key);
+    int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL || htable[hash_val]->getNext() == NULL || (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value)) {
         return position;
     } else {
@@ -156,18 +156,6 @@ int HashTable_EncadeamentoInterno::search_previous(int key, int value) {
 FOUND_SEARCH_POSITION:
         return position;
     }
-
-
-
-    for (int i = 0; i < TABLE_SIZE; i++) {
-        if (htable[i] == NULL || htable[i]->getNext() == NULL) {
-            continue;
-        } else if (htable[i]->getNext()->getKey() == key && htable[i]->getNext()->getValue() == value) {
-            position = i;
-            break;
-        }
-    }
-    return position;
 }
 
 void HashTable_EncadeamentoInterno::displayAll() {
