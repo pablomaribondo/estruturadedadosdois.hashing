@@ -59,7 +59,13 @@ void HashTable_HashingDuplo::insert(int key, int value) {
 }
 
 void HashTable_HashingDuplo::remove(int key, int value) {
-
+    int position = find(key, value);
+    if (position == -1) {
+        cout << "This element does not exist!" << endl;
+    } else {
+        delete htable[position];
+        htable[position] = NULL;
+    }
 }
 
 int HashTable_HashingDuplo::find(int key, int value) {
