@@ -34,10 +34,14 @@ void HashTable_EncadeamentoExterno::remove(String key, String value) {
     int hash_val = hashFunction(key);
     int position = htable[hash_val].search(key, value);
     if (position == -1) {
-        cout << "This element does not exist!" << endl;
+//        cout << "This element does not exist!" << endl;
     } else {
         htable[hash_val].remove_position(position);
     }
+}
+
+void HashTable_EncadeamentoExterno::remove_position(int position) {
+    htable[position].remove_position(1);
 }
 
 int HashTable_EncadeamentoExterno::find(String key, String value) {

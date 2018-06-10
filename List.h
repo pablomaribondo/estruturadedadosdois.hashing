@@ -5,7 +5,7 @@
 
 class List {
 private:
-    const int TABLE_SIZE = 1000;
+    const int TABLE_SIZE = 12000;
     Node* head;
     Node* tail;
 public:

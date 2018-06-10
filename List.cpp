@@ -102,7 +102,7 @@ void List::insert_sorted(String key, String value) {
             this->insert_position(position, key, value);
         }
     } else {
-        cout << "This element already exists" << endl;
+//        cout << "This element already exists" << endl;
     }
 }
 
