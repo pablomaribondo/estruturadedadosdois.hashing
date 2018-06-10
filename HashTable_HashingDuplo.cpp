@@ -18,19 +18,28 @@ HashTable_HashingDuplo::~HashTable_HashingDuplo() {
     delete[] htable;
 }
 
-int HashTable_HashingDuplo::hashFunction(int key) {
-    return key % TABLE_SIZE;
+int HashTable_HashingDuplo::hashFunction(String key) {
+    return stringTransposition(key) % TABLE_SIZE;
 }
 
-int HashTable_HashingDuplo::doubleHashFunction(int key) {
-    return 1 + (key % (TABLE_SIZE - 1));
+int HashTable_HashingDuplo::doubleHashFunction(String key) {
+    return 1 + (stringTransposition(key) % (TABLE_SIZE - 1));
 }
 
-int HashTable_HashingDuplo::reHashFunction(int index, int key) {
+int HashTable_HashingDuplo::reHashFunction(int index, String key) {
     return (index + doubleHashFunction(key)) % TABLE_SIZE;
 }
 
-void HashTable_HashingDuplo::insert(int key, int value) {
+int HashTable_HashingDuplo::stringTransposition(String key) {
+    int sum = 0, numericValue;
+    for (int i = 0; i < key.length(); i++) {
+        numericValue = int (key.at(i));
+        sum += numericValue << i % 8;
+    }
+    return (abs(sum) % TABLE_SIZE) + 1;
+}
+
+void HashTable_HashingDuplo::insert(String key, String value) {
     if (find(key, value) == -1) {
         if (!isFull()) {
             int index, hash_val, position = hashFunction(key);
@@ -58,7 +67,7 @@ void HashTable_HashingDuplo::insert(int key, int value) {
     }
 }
 
-void HashTable_HashingDuplo::remove(int key, int value) {
+void HashTable_HashingDuplo::remove(String key, String value) {
     int position = find(key, value);
     if (position == -1) {
         cout << "This element does not exist!" << endl;
@@ -68,7 +77,7 @@ void HashTable_HashingDuplo::remove(int key, int value) {
     }
 }
 
-int HashTable_HashingDuplo::find(int key, int value) {
+int HashTable_HashingDuplo::find(String key, String value) {
     int aux_position = -1;
     int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL) {

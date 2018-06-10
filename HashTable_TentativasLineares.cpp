@@ -18,21 +18,30 @@ HashTable_TentativasLineares::~HashTable_TentativasLineares() {
     delete[] htable;
 }
 
-int HashTable_TentativasLineares::hashFunction(int key) {
-    return key % TABLE_SIZE;
+int HashTable_TentativasLineares::hashFunction(String key) {
+    return stringTransposition(key) % TABLE_SIZE;
 }
 
 int HashTable_TentativasLineares::reHashFunction(int index) {
     return (index + 1) % TABLE_SIZE;
 }
 
-void HashTable_TentativasLineares::insert(int key, int value, int position) {
+int HashTable_TentativasLineares::stringTransposition(String key) {
+    int sum = 0, numericValue;
+    for (int i = 0; i < key.length(); i++) {
+        numericValue = int (key.at(i));
+        sum += numericValue << i % 8;
+    }
+    return (abs(sum) % TABLE_SIZE) + 1;
+}
+
+void HashTable_TentativasLineares::insert(String key, String value, int position) {
     if (find(key, value) == -1) {
         if (!this->isFull()) {
             static int index;
             if (position == -2) {
                 position = hashFunction(key);
-                index = key;
+                index = stringTransposition(key);
             }
             if (htable[position] == NULL) {
                 Node* newNode = new Node(key, value);
@@ -41,7 +50,7 @@ void HashTable_TentativasLineares::insert(int key, int value, int position) {
                 position = reHashFunction(index++);
                 if (position != hashFunction(key)) {
                     insert(key, value, position);
-                } 
+                }
             }
         } else {
             cout << "The Hash Table is full!" << endl;
@@ -51,7 +60,7 @@ void HashTable_TentativasLineares::insert(int key, int value, int position) {
     }
 }
 
-void HashTable_TentativasLineares::remove(int key, int value) {
+void HashTable_TentativasLineares::remove(String key, String value) {
     int position = find(key, value);
     if (position == -1) {
         cout << "This element does not exist!" << endl;
@@ -61,7 +70,7 @@ void HashTable_TentativasLineares::remove(int key, int value) {
     }
 }
 
-int HashTable_TentativasLineares::find(int key, int value) {
+int HashTable_TentativasLineares::find(String key, String value) {
     int position = -1;
     int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL) {
@@ -69,7 +78,7 @@ int HashTable_TentativasLineares::find(int key, int value) {
     } else if (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value) {
         return hash_val;
     } else {
-        int index = key;
+        int index = stringTransposition(key);
         int aux = reHashFunction(index);
         while (aux != hash_val) {
             if (htable[aux] == NULL) {
@@ -90,7 +99,7 @@ void HashTable_TentativasLineares::displayAll() {
         if (htable[i] == NULL) {
             cout << "Empty" << endl;
         } else {
-            cout << "[Key: " << htable[i]->getKey() << " Value: " << htable[i]->getValue() << "]" << endl;
+            cout << "[Key: " << htable[i]->getKey() << " | Value: " << htable[i]->getValue() << "]" << endl;
         }
     }
 }

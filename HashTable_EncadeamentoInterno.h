@@ -6,17 +6,18 @@
 class HashTable_EncadeamentoInterno {
 private:
     Node** htable;
-    const int TABLE_SIZE = 8;
-    void insert_position(int key, int value, int position);
-    int search_previous(int key, int value);
-    int hashFunction(int key);
+    const int TABLE_SIZE = 12000;
+    void insert_position(String key, String value, int position);
+    int search_previous(String key, String value);
+    int hashFunction(String key);
+    int stringTransposition(String key);
     bool isFull();
 public:
     HashTable_EncadeamentoInterno();
     ~HashTable_EncadeamentoInterno();
-    void insert(int key, int value);
-    void remove(int key, int value);
-    int find(int key, int value);
+    void insert(String key, String value);
+    void remove(String key, String value);
+    int find(String key, String value);
     void displayAll();
 };
 

@@ -1,22 +1,24 @@
 #ifndef NODE_H
 #define NODE_H
 
+typedef std::string String;
+
 class Node {
 private:
-    int key;
-    int value;
+    String key;
+    String value;
     Node* next;
 public:
 
     Node();
-    Node(int key, int value);
-    Node(int key, int value, Node* next);
+    Node(String key, String value);
+    Node(String key, String value, Node* next);
     void setNext(Node*);
     Node* getNext();
-    void setValue(int value);
-    int getValue();
-    void setKey(int key);
-    int getKey();
+    void setValue(String value);
+    String getValue();
+    void setKey(String key);
+    String getKey();
 
 };
 

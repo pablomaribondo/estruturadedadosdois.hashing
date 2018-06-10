@@ -5,18 +5,18 @@
 using namespace std;
 
 Node::Node() {
-    this->key = 0;
-    this->value = 0;
+    this->key = "";
+    this->value = "";
     this->next = NULL;
 }
 
-Node::Node(int key, int value) {
+Node::Node(String key, String value) {
     this->key = key;
     this->value = value;
     this->next = NULL;
 }
 
-Node::Node(int key, int value, Node* next) {
+Node::Node(String key, String value, Node* next) {
     this->key = key;
     this->value = value;
     this->next = next;
@@ -30,18 +30,18 @@ Node* Node::getNext() {
     return next;
 }
 
-void Node::setValue(int value) {
+void Node::setValue(String value) {
     this->value = value;
 }
 
-int Node::getValue() {
+String Node::getValue() {
     return value;
 }
 
-void Node::setKey(int key) {
+void Node::setKey(String key) {
     this->key = key;
 }
 
-int Node::getKey() {
+String Node::getKey() {
     return key;
 }

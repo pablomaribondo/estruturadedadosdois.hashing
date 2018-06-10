@@ -18,11 +18,20 @@ HashTable_EncadeamentoInterno::~HashTable_EncadeamentoInterno() {
     delete[] htable;
 }
 
-int HashTable_EncadeamentoInterno::hashFunction(int key) {
-    return key % (TABLE_SIZE / 2);
+int HashTable_EncadeamentoInterno::hashFunction(String key) {
+    return stringTransposition(key) % (TABLE_SIZE / 2);
 }
 
-void HashTable_EncadeamentoInterno::insert(int key, int value) {
+int HashTable_EncadeamentoInterno::stringTransposition(String key) {
+    int sum = 0, numericValue;
+    for (int i = 0; i < key.length(); i++) {
+        numericValue = int (key.at(i));
+        sum += numericValue << i % 8;
+    }
+    return (abs(sum) % TABLE_SIZE) + 1;
+}
+
+void HashTable_EncadeamentoInterno::insert(String key, String value) {
     if (find(key, value) == -1) {
         if (!this->isFull()) {
             int hash_val = hashFunction(key);
@@ -49,7 +58,7 @@ void HashTable_EncadeamentoInterno::insert(int key, int value) {
     }
 }
 
-void HashTable_EncadeamentoInterno::insert_position(int key, int value, int position) {
+void HashTable_EncadeamentoInterno::insert_position(String key, String value, int position) {
     Node* newNode = new Node(key, value);
     if (htable[position] == NULL) {
         htable[position] = newNode;
@@ -67,7 +76,7 @@ void HashTable_EncadeamentoInterno::insert_position(int key, int value, int posi
     }
 }
 
-void HashTable_EncadeamentoInterno::remove(int key, int value) {
+void HashTable_EncadeamentoInterno::remove(String key, String value) {
     int hash_val = hashFunction(key);
     int position = find(key, value);
     if (position == -1) {
@@ -106,7 +115,7 @@ void HashTable_EncadeamentoInterno::remove(int key, int value) {
     }
 }
 
-int HashTable_EncadeamentoInterno::find(int key, int value) {
+int HashTable_EncadeamentoInterno::find(String key, String value) {
     int position = -1;
     int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL) {
@@ -133,7 +142,7 @@ FOUND_SEARCH:
     }
 }
 
-int HashTable_EncadeamentoInterno::search_previous(int key, int value) {
+int HashTable_EncadeamentoInterno::search_previous(String key, String value) {
     int position = -1;
     int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL || htable[hash_val]->getNext() == NULL || (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value)) {
@@ -164,7 +173,7 @@ void HashTable_EncadeamentoInterno::displayAll() {
             cout << "Empty" << endl;
             continue;
         }
-        cout << "[Key: " << htable[i]->getKey() << " Value: " << htable[i]->getValue() << "]";
+        cout << "[Key: " << htable[i]->getKey() << " | Value: " << htable[i]->getValue() << "]";
         if (htable[i]->getNext() == NULL) {
             cout << endl;
             continue;

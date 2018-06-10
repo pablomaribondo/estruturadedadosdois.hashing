@@ -6,14 +6,15 @@
 class HashTable_EncadeamentoExterno {
 private:
     List* htable;
-    const int TABLE_SIZE = 4;
-    int hashFunction(int key);
+    const int TABLE_SIZE = 1000;
+    int hashFunction(String key);
+    int stringTransposition(String key);
 public:
     HashTable_EncadeamentoExterno();
     ~HashTable_EncadeamentoExterno();
-    void insert(int key, int value);
-    void remove(int key, int value);
-    int find(int key, int value);
+    void insert(String key, String value);
+    void remove(String key, String value);
+    int find(String key, String value);
     void displayAll();
 };
 

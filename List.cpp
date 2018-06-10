@@ -9,7 +9,7 @@ List::List() {
     tail = NULL;
 }
 
-List::List(int key, int value) {
+List::List(String key, String value) {
     head = new Node(key, value);
     tail = head;
 }
@@ -40,7 +40,16 @@ Node* List::getHead() {
     return head;
 }
 
-void List::insert_first(int key, int value) {
+int List::stringTransposition(String key) {
+    int sum = 0, numericValue;
+    for (int i = 0; i < key.length(); i++) {
+        numericValue = int (key.at(i));
+        sum += numericValue << i % 8;
+    }
+    return (abs(sum) % TABLE_SIZE) + 1;
+}
+
+void List::insert_first(String key, String value) {
     Node* newNode = new Node(key, value);
 
     if (isEmpty()) {
@@ -52,7 +61,7 @@ void List::insert_first(int key, int value) {
     }
 }
 
-void List::insert_position(int position, int key, int value) {
+void List::insert_position(int position, String key, String value) {
     Node* newNode = new Node(key, value);
 
     if (isEmpty()) {
@@ -74,28 +83,30 @@ void List::insert_position(int position, int key, int value) {
 
 }
 
-void List::insert_sorted(int key, int value) {
+void List::insert_sorted(String key, String value) {
     int position = 2;
-
-    if (this->isEmpty() || key < head->getKey() || (key == head->getKey() && value < head->getValue())) {
-        this->insert_first(key, value);
-    } else {
-        Node* next = new Node(key, value);
-        next = head->getNext();
-        while (next != NULL) {
-            if ((key == next->getKey() && value > next->getValue()) || key > next->getKey()) {
-                next = next->getNext();
-                position++;
-            } else {
-                break;
+    if (search(key, value) == -1) {
+        if (this->isEmpty() || stringTransposition(key) < stringTransposition(head->getKey()) || (key == head->getKey() && stringTransposition(value) < stringTransposition(head->getValue()))) {
+            this->insert_first(key, value);
+        } else {
+            Node* next = new Node(key, value);
+            next = head->getNext();
+            while (next != NULL) {
+                if ((key == next->getKey() && stringTransposition(value) > stringTransposition(next->getValue())) || stringTransposition(key) > stringTransposition(next->getKey())) {
+                    next = next->getNext();
+                    position++;
+                } else {
+                    break;
+                }
             }
+            this->insert_position(position, key, value);
         }
-        this->insert_position(position, key, value);
+    } else {
+        cout << "This element already exists" << endl;
     }
-
 }
 
-void List::insert_last(int key, int value) {
+void List::insert_last(String key, String value) {
     Node* newNode = new Node(key, value);
 
     if (isEmpty()) {
@@ -153,7 +164,7 @@ void List::display() {
         cout << "The List is Empty!" << endl;
     else {
         while (hd) {
-            cout << "[Key: " << hd->getKey() << " Value: " << hd->getValue() << "] ";
+            cout << "[Key: " << hd->getKey() << " | Value: " << hd->getValue() << "] ";
             hd = hd->getNext();
         }
         cout << endl;
@@ -175,7 +186,7 @@ int List::size() {
     return qty;
 }
 
-int List::search(int key, int value) {
+int List::search(String key, String value) {
     Node* hd = head;
     int position = 1;
 

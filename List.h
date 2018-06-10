@@ -5,29 +5,29 @@
 
 class List {
 private:
+    const int TABLE_SIZE = 1000;
     Node* head;
     Node* tail;
 public:
-
     List();
-    List(int key, int value);
+    List(String key, String value);
     ~List();
     void setTail(Node* tail);
     Node* getTail();
     void setHead(Node* head);
     Node* getHead();
-    void insert_first(int key, int value);
-    void insert_position(int position, int key, int value);
-    void insert_sorted(int key, int value);
-    void insert_last(int key, int value);
+    int stringTransposition(String key);
+    void insert_first(String key, String value);
+    void insert_position(int position, String key, String value);
+    void insert_sorted(String key, String value);
+    void insert_last(String key, String value);
     void remove_first();
     void remove_position(int position);
     void remove_last();
     void display();
     int size();
-    int search(int key, int value);
+    int search(String key, String value);
     bool isEmpty();
-
 };
 
 #endif /* LIST_H */
