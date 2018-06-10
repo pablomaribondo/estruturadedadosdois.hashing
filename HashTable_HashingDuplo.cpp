@@ -33,12 +33,12 @@ int HashTable_HashingDuplo::reHashFunction(int index, int key) {
 void HashTable_HashingDuplo::insert(int key, int value) {
     if (find(key, value) == -1) {
         if (!isFull()) {
-            int index, aux, position = hashFunction(key);
+            int index, hash_val, position = hashFunction(key);
             if (htable[position] == NULL) {
                 Node* newNode = new Node(key, value);
                 htable[position] = newNode;
             } else {
-                index = aux = hashFunction(key);
+                index = hash_val = hashFunction(key);
                 position = reHashFunction(index, key);
                 do {
                     if (htable[position] == NULL) {
@@ -48,7 +48,7 @@ void HashTable_HashingDuplo::insert(int key, int value) {
                     } else {
                         position = reHashFunction(++index, key);
                     }
-                } while (position != reHashFunction(aux, key));
+                } while (position != reHashFunction(hash_val, key));
             }
         } else {
             cout << "The Hash Table is full!" << endl;
@@ -63,7 +63,27 @@ void HashTable_HashingDuplo::remove(int key, int value) {
 }
 
 int HashTable_HashingDuplo::find(int key, int value) {
-    return -1;
+    int aux_position = -1;
+    int hash_val = hashFunction(key);
+    if (htable[hash_val] == NULL) {
+        return aux_position;
+    } else if (htable[hash_val]->getKey() == key && htable[hash_val]->getValue() == value) {
+        return hash_val;
+    } else {
+        int index = hash_val;
+        int position = reHashFunction(index, key);
+        do {
+            if (htable[position] == NULL) {
+                position = reHashFunction(++index, key);
+            } else if (htable[position]->getKey() == key && htable[position]->getValue() == value) {
+                aux_position = position;
+                break;
+            } else {
+                position = reHashFunction(++index, key);
+            }
+        } while (position != reHashFunction(hash_val, key));
+    }
+    return aux_position;
 }
 
 void HashTable_HashingDuplo::displayAll() {
