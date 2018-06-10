@@ -12,14 +12,12 @@ private:
     int hashFunction(int key);
     bool isFull();
 public:
-
     HashTable_EncadeamentoInterno();
     ~HashTable_EncadeamentoInterno();
     void insert(int key, int value);
     void remove(int key, int value);
-    int search(int key, int value);
+    int find(int key, int value);
     void displayAll();
-    
 };
 
 #endif /* HASHTABLE_ENCADEAMENTOINTERNO_H */

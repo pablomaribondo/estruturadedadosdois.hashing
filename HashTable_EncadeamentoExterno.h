@@ -9,14 +9,12 @@ private:
     const int TABLE_SIZE = 4;
     int hashFunction(int key);
 public:
-
     HashTable_EncadeamentoExterno();
     ~HashTable_EncadeamentoExterno();
     void insert(int key, int value);
     void remove(int key, int value);
-    int search(int key, int value);
+    int find(int key, int value);
     void displayAll();
-    
 };
 
 #endif /* HASHTABLE_ENCADEAMENTOEXTERNO_H */

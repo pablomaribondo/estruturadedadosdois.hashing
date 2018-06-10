@@ -31,7 +31,7 @@ void HashTable_EncadeamentoExterno::remove(int key, int value) {
     }
 }
 
-int HashTable_EncadeamentoExterno::search(int key, int value) {
+int HashTable_EncadeamentoExterno::find(int key, int value) {
     int hash_val = hashFunction(key);
     int position = htable[hash_val].search(key, value);
     return position;

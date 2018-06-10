@@ -27,7 +27,7 @@ int HashTable_TentativasLineares::reHashFunction(int index) {
 }
 
 void HashTable_TentativasLineares::insert(int key, int value, int position) {
-    if (search(key, value) == -1) {
+    if (find(key, value) == -1) {
         if (!this->isFull()) {
             static int index;
             if (position == -2) {
@@ -52,7 +52,7 @@ void HashTable_TentativasLineares::insert(int key, int value, int position) {
 }
 
 void HashTable_TentativasLineares::remove(int key, int value) {
-    int position = search(key, value);
+    int position = find(key, value);
     if (position == -1) {
         cout << "This element does not exist!" << endl;
     } else {
@@ -61,7 +61,7 @@ void HashTable_TentativasLineares::remove(int key, int value) {
     }
 }
 
-int HashTable_TentativasLineares::search(int key, int value) {
+int HashTable_TentativasLineares::find(int key, int value) {
     int position = -1;
     int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL) {
@@ -89,7 +89,6 @@ void HashTable_TentativasLineares::displayAll() {
     for (int i = 0; i < TABLE_SIZE; i++) {
         if (htable[i] == NULL) {
             cout << "Empty" << endl;
-            continue;
         } else {
             cout << "[Key: " << htable[i]->getKey() << " Value: " << htable[i]->getValue() << "]" << endl;
         }

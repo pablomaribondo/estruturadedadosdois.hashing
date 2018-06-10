@@ -23,7 +23,7 @@ int HashTable_EncadeamentoInterno::hashFunction(int key) {
 }
 
 void HashTable_EncadeamentoInterno::insert(int key, int value) {
-    if (search(key, value) == -1) {
+    if (find(key, value) == -1) {
         if (!this->isFull()) {
             int hash_val = hashFunction(key);
             Node* newNode = new Node(key, value);
@@ -38,7 +38,7 @@ void HashTable_EncadeamentoInterno::insert(int key, int value) {
                     }
                 }
             } else {
-                int position = search(htable[hash_val]->getNext()->getKey(), htable[hash_val]->getNext()->getValue());
+                int position = find(htable[hash_val]->getNext()->getKey(), htable[hash_val]->getNext()->getValue());
                 insert_position(key, value, position);
             }
         } else {
@@ -62,14 +62,14 @@ void HashTable_EncadeamentoInterno::insert_position(int key, int value, int posi
             }
         }
     } else {
-        int newPosition = search(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue());
+        int newPosition = find(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue());
         insert_position(key, value, newPosition);
     }
 }
 
 void HashTable_EncadeamentoInterno::remove(int key, int value) {
     int hash_val = hashFunction(key);
-    int position = search(key, value);
+    int position = find(key, value);
     if (position == -1) {
         cout << "This element does not exist!" << endl;
     } else {
@@ -79,7 +79,7 @@ void HashTable_EncadeamentoInterno::remove(int key, int value) {
                 delete htable[position];
                 htable[position] = NULL;
             } else {
-                int position_next = search(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue());
+                int position_next = find(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue());
                 delete htable[position];
                 htable[position] = new Node(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue(), htable[position]->getNext()->getNext());
                 if (htable[position_next]->getNext() == NULL) {
@@ -97,7 +97,7 @@ void HashTable_EncadeamentoInterno::remove(int key, int value) {
                 delete htable[position];
                 htable[position] = NULL;
             } else {
-                int position_next = search(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue());
+                int position_next = find(htable[position]->getNext()->getKey(), htable[position]->getNext()->getValue());
                 htable[position_previous]->setNext(htable[position_next]);
                 delete htable[position];
                 htable[position] = NULL;
@@ -106,7 +106,7 @@ void HashTable_EncadeamentoInterno::remove(int key, int value) {
     }
 }
 
-int HashTable_EncadeamentoInterno::search(int key, int value) {
+int HashTable_EncadeamentoInterno::find(int key, int value) {
     int position = -1;
     int hash_val = hashFunction(key);
     if (htable[hash_val] == NULL) {

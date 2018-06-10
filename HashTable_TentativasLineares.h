@@ -15,9 +15,8 @@ public:
     ~HashTable_TentativasLineares();
     void insert(int key, int value, int = - 2);
     void remove(int key, int value);
-    int search(int key, int value);
+    int find(int key, int value);
     void displayAll();
-    
 };
 
 #endif /* HASHTABLE_TENTATIVASLINEARES_H */
