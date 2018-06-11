@@ -17,6 +17,7 @@ public:
     ~HashTable_HashingDuplo();
     void insert(String key, String value);
     void remove(String key, String value);
+    void remove_position(int position);
     int find(String key, String value);
     void displayAll();
 };

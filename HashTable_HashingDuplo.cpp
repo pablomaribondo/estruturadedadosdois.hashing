@@ -70,10 +70,18 @@ void HashTable_HashingDuplo::insert(String key, String value) {
 void HashTable_HashingDuplo::remove(String key, String value) {
     int position = find(key, value);
     if (position == -1) {
-        cout << "This element does not exist!" << endl;
+//        cout << "This element does not exist!" << endl;
     } else {
         delete htable[position];
         htable[position] = NULL;
+    }
+}
+
+void HashTable_HashingDuplo::remove_position(int position) {
+    if (htable[position] != NULL) {
+        String key = htable[position]->getKey();
+        String value = htable[position]->getValue();
+        this->remove(key, value);
     }
 }
 
