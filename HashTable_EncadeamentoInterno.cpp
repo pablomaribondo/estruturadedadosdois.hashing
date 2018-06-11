@@ -54,7 +54,7 @@ void HashTable_EncadeamentoInterno::insert(String key, String value) {
             cout << "The Hash Table is full!" << endl;
         }
     } else {
-        cout << "This Element already exists!" << endl;
+        //        cout << "This Element already exists!" << endl;
     }
 }
 
@@ -112,6 +112,14 @@ void HashTable_EncadeamentoInterno::remove(String key, String value) {
                 htable[position] = NULL;
             }
         }
+    }
+}
+
+void HashTable_EncadeamentoInterno::remove_position(int position) {
+    if (htable[position] != NULL) {
+        String key = htable[position]->getKey();
+        String value = htable[position]->getValue();
+        this->remove(key, value);
     }
 }
 

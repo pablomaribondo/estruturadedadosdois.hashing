@@ -6,7 +6,7 @@
 class HashTable_EncadeamentoExterno {
 private:
     List* htable;
-    const int TABLE_SIZE = 12000;
+    const int TABLE_SIZE = 30000;
     int hashFunction(String key);
     int stringTransposition(String key);
 public:

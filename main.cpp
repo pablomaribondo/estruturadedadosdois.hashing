@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
     
     /** Encadeamento Externo*/
     HashTable_EncadeamentoExterno hash_EE;
+    cout << "Encadeamento Externo:" << endl; 
     /** Insert*/
     auto EE_Insert_start = high_resolution_clock::now();
     for(int i = 0; i < 10000; i++) {
@@ -56,19 +57,47 @@ int main(int argc, char *argv[]) {
     /** Remove*/
     auto EE_Remove_start = high_resolution_clock::now();
     for(int i = 0; i < 3000; i++) {
-        hash_EE.remove_position(rand() % 10000);
+        hash_EE.remove_position(rand() % 30000);
     }
     auto EE_Remove_stop = high_resolution_clock::now();
     auto EE_Remove_duration = duration_cast<microseconds>(EE_Remove_stop - EE_Remove_start);
     cout << "Time taken by Remove function: " << EE_Remove_duration.count() << " microseconds" << endl;
     /** Query*/
     auto EE_Find_start = high_resolution_clock::now();
-    for(int i = 0; i < 10000; i++) {
+    for(int i = 0; i < 100000; i++) {
         hash_EE.find(names[randomName()], occupations[randomOccupation()]);
     }
     auto EE_Find_stop = high_resolution_clock::now();
     auto EE_Find_duration = duration_cast<microseconds>(EE_Find_stop - EE_Find_start);
     cout << "Time taken by Find function: " << EE_Find_duration.count() << " microseconds" << endl;
+    
+    /** Encadeamento Interno*/
+    HashTable_EncadeamentoInterno hash_EI;
+    cout << "\nEncadeamento Interno:" << endl;
+    /** Insert*/
+    auto EI_Insert_start = high_resolution_clock::now();
+    for(int i = 0; i < 10000; i++) {
+        hash_EI.insert(names[randomName()], occupations[randomOccupation()]);
+    }
+    auto EI_Insert_stop = high_resolution_clock::now();
+    auto EI_Insert_duration = duration_cast<microseconds>(EI_Insert_stop - EI_Insert_start);
+    cout << "Time taken by Insert function: " << EI_Insert_duration.count() << " microseconds" << endl;
+    /** Remove*/
+    auto EI_Remove_start = high_resolution_clock::now();
+    for(int i = 0; i < 3000; i++) {
+        hash_EI.remove_position(rand() % 30000);
+    }
+    auto EI_Remove_stop = high_resolution_clock::now();
+    auto EI_Remove_duration = duration_cast<microseconds>(EI_Remove_stop - EI_Remove_start);
+    cout << "Time taken by Remove function: " << EI_Remove_duration.count() << " microseconds" << endl;
+    /** Query*/
+    auto EI_Find_start = high_resolution_clock::now();
+    for(int i = 0; i < 100000; i++) {
+        hash_EI.find(names[randomName()], occupations[randomOccupation()]);
+    }
+    auto EI_Find_stop = high_resolution_clock::now();
+    auto EI_Find_duration = duration_cast<microseconds>(EI_Find_stop - EI_Find_start);
+    cout << "Time taken by Find function: " << EI_Find_duration.count() << " microseconds" << endl;
 
     return 0;
 

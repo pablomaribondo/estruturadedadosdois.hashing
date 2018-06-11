@@ -40,6 +40,7 @@ void HashTable_EncadeamentoExterno::remove(String key, String value) {
     }
 }
 
+
 void HashTable_EncadeamentoExterno::remove_position(int position) {
     htable[position].remove_position(1);
 }
