@@ -63,7 +63,7 @@ void HashTable_HashingDuplo::insert(String key, String value) {
             cout << "The Hash Table is full!" << endl;
         }
     } else {
-        cout << "This Element already exists!" << endl;
+//        cout << "This Element already exists!" << endl;
     }
 }
 

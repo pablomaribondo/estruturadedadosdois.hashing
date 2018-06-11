@@ -6,7 +6,7 @@
 class HashTable_TentativasLineares {
 private:
     Node** htable;
-    const int TABLE_SIZE = 12000;
+    const int TABLE_SIZE = 30000;
     int hashFunction(String key);
     int reHashFunction(int index);
     int stringTransposition(String key);
@@ -14,8 +14,9 @@ private:
 public:
     HashTable_TentativasLineares();
     ~HashTable_TentativasLineares();
-    void insert(String key, String value, int = - 2);
+    void insert(String key, String value);
     void remove(String key, String value);
+    void remove_position(int position);
     int find(String key, String value);
     void displayAll();
 };

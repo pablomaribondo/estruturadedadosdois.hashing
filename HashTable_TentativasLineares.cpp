@@ -35,38 +35,49 @@ int HashTable_TentativasLineares::stringTransposition(String key) {
     return (abs(sum) % TABLE_SIZE) + 1;
 }
 
-void HashTable_TentativasLineares::insert(String key, String value, int position) {
+void HashTable_TentativasLineares::insert(String key, String value) {
     if (find(key, value) == -1) {
         if (!this->isFull()) {
-            static int index;
-            if (position == -2) {
-                position = hashFunction(key);
-                index = stringTransposition(key);
-            }
+            int index, hash_val, position = hashFunction(key);
+            index = hash_val = stringTransposition(key);
             if (htable[position] == NULL) {
                 Node* newNode = new Node(key, value);
                 htable[position] = newNode;
             } else {
                 position = reHashFunction(index++);
-                if (position != hashFunction(key)) {
-                    insert(key, value, position);
-                }
+                do {
+                    if (htable[position] == NULL) {
+                        Node* newNode = new Node(key, value);
+                        htable[position] = newNode;
+                        break;
+                    } else {
+                        position = reHashFunction(index++);
+                    }
+                } while (position != reHashFunction(hash_val));
             }
         } else {
             cout << "The Hash Table is full!" << endl;
         }
     } else {
-        cout << "This Element already exists!" << endl;
+        //        cout << "This Element already exists!" << endl;
     }
 }
 
 void HashTable_TentativasLineares::remove(String key, String value) {
     int position = find(key, value);
     if (position == -1) {
-        cout << "This element does not exist!" << endl;
+//        cout << "This element does not exist!" << endl;
     } else {
         delete htable[position];
         htable[position] = NULL;
+    }
+}
+
+void HashTable_TentativasLineares::remove_position(int position) {
+    if (htable[position] != NULL) {
+        String key = htable[position]->getKey();
+        String value = htable[position]->getValue();
+        this->remove(key, value);
     }
 }
 

@@ -6,7 +6,7 @@
 class HashTable_HashingDuplo {
 private:
     Node** htable;
-    const int TABLE_SIZE = 12000;
+    const int TABLE_SIZE = 30000;
     int hashFunction(String key);
     int doubleHashFunction(String key);
     int reHashFunction(int index, String key);
